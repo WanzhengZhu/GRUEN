@@ -32,8 +32,6 @@ def preprocess_candidates(candidates):
         while myre:
             candidates[i] = 'UNK'.join(candidates[i].split(myre.group()))
             myre = re.search(r'(\d+)\. (\d+)', candidates[i])
-        # if candidates[i] == "":
-        #     candidates[i] = 'aaaaa'
         candidates[i] = candidates[i].strip()
     processed_candidates = []
     for candidate_i in candidates:
@@ -152,8 +150,6 @@ def get_grammaticality_score(processed_candidates):
 def get_redundancy_score(all_summary):
     def if_two_sentence_redundant(a, b):
         """ Determine whether there is redundancy between two sentences. """
-        # a = a.lower()
-        # b = b.lower()
         if a == b:
             return 4
         if (a in b) or (b in a):
@@ -230,40 +226,7 @@ def get_gruen(candidates):
 
 
 if __name__ == "__main__":
-    candidates = ["UKIP has fallen 18 points behind the Tories and seven behind labour. UKIP now trail the Tories by 18 per cent and labour by 7 per cent. Tonight's survey is the latest in a string of polls showing UKIP's support being squeezed by Labour the Tories.",
-                  "Japanese woman got sweet revenge on her boyfriend by giving his apple collection a good wash. She then took photos of the Gadget Jacuzzi, and dumped his IMAC, iphone, ipad and accessories in the bath tub.",
-                  "Daniel Steele, was rushed to hospital but died in the early hours of sunday. She was taken into custody and has been charged with murder. The shooting occurred in the block of Sumner Boulevard, near Triangle Town Center in Triangle Town Center. Richardson, a jewelry consultant who had previously married to a soldier nine years her senior before she began dating dating Daniel Steele.",
-                  "I am a boy. I am a boy. I am a boy."]
-
-    import json
-    from scipy.stats import pearsonr, spearmanr, kendalltau
-    from os import listdir
-    from os.path import isfile, join
-    mypath = '../earth/data/processed_data'
-    fname_list = [join(mypath, f) for f in listdir(mypath) if isfile(join(mypath, f)) and f.split('.')[-1] == 'jsonl']
-    out = ''
-    for fname in fname_list:
-        print(fname)
-        all_data = [json.loads(line) for line in open(fname, 'r')]
-        candidates = [x['Candidate'] for x in all_data]
-        scores = []
-        labels = ['overall', 'grammar', 'redundancy', 'hter', 'naturalness', 'quality', 'non-redun', 'referential', 'focus', 'coherence', 'Readability', 'fluency']
-        for i in labels:
-            if i in all_data[0]:
-                scores.append([x[i] for x in all_data])
-        gruen_score = get_gruen(candidates)
-
-        print('*' * 50)
-        print(fname)
-        out += '*' * 50 + '\n' + fname + '\n'
-        for score in scores:
-            print('Pearson: ' + str(pearsonr(gruen_score, score)[0]))
-            print('Spearman: ' + str(spearmanr(gruen_score, score)[0]))
-            print('Kendall: ' + str(kendalltau(gruen_score, score)[0]))
-            out += 'Pearson: ' + str(pearsonr(gruen_score, score)[0]) + '\n'
-            out += 'Spearman: ' + str(spearmanr(gruen_score, score)[0]) + '\n'
-            out += 'Kendall: ' + str(kendalltau(gruen_score, score)[0]) + '\n'
-        print('\n\n')
-        out += '\n\n'
-    print(out)
-
+    candidates = ["This is a good example.",
+                  "This is a bad example. It is ungrammatical and redundant. Orellana shown red card for throwing grass at Sergio Busquets. Orellana shown red card for throwing grass at Sergio Busquets."]
+    gruen_score = get_gruen(candidates)
+    print(gruen_score)
