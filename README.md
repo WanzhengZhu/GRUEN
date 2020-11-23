@@ -90,10 +90,11 @@ __Text Compression__:
 ## Citation
 If you find this repo useful, please cite:
 ```bibtex
-@article{zhu2020gruen,
+@inproceedings{zhu2020gruen,
   title={GRUEN for Evaluating Linguistic Quality of Generated Text},
   author={Zhu, Wanzheng and Bhat, Suma},
-  journal={arXiv preprint arXiv:2010.02498},
+  booktitle={Proceedings of the 2020 Conference on Empirical Methods in Natural Language Processing: Findings},
+  pages={94--108},
   year={2020}
 }
 ```
