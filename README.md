@@ -35,15 +35,16 @@ The code is based on Python 3.
     ```
     pip install -r requirements.txt
     ```
-
-2) Download the pretrained CoLA classifier [here](https://drive.google.com/file/d/1Hw5na_Iy4-kGEoX60bD8vXYeJDQrzyj6/view?usp=sharing), unzip it, rename the folder `cola_model` and put it under `./`.
-
-3) Download `en_core_web_md` from the `spacy` module by 
+    or using conda environment file:
     ```
-    python -m spacy download en_core_web_md
-    ``` 
+    conda env create --file environment.yml
+    ```
 
-4) You may now run `Main.py` for an example usage. 
+2) Use shell inscript to download CoLa models.  
+```chmod u+x install.sh & ./install.sh```
+
+3) Run main.py for an example usage.   
+  ```python -m main```  
 
 
 
