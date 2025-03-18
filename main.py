@@ -269,8 +269,6 @@ def get_focus_score(all_summary):
                 
                 doc1 = nlp(all_summary[i][j - 1])
                 doc2 = nlp(all_summary[i][j])
-                print(doc1.similarity(doc2))
-                print(wmd_instance.compute_similarity(doc1, doc2))
                 try:
                     score.append(1.0 /
                                  (1.0 + math.exp(-doc1.similarity(doc2) + 7)))
