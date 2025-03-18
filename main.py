@@ -256,8 +256,6 @@ def get_focus_score(all_summary):
     def compute_sentence_similarity():
 
         nlp = spacy.load('en_core_web_md')
-        wmd_instance = wmd.WMD.SpacySimilarityHook(nlp)
-        # nlp.add_pipe('simhook', last=True)
         nlp.add_pipe('simhook', last=True)
         all_score = []
         for i in range(len(all_summary)):
