@@ -88,6 +88,16 @@ __Text Compression__:
 - [Toutanova et al. (2016)](https://www.aclweb.org/anthology/D16-1033.pdf): A dataset and evaluation metrics for abstractive compression of sentences and short paragraphs (EMNLP 2016) 
 
 
+## Using Docker
+Build the image with:
+```python
+docker build -t gruen .
+```
+
+Run with:
+```
+docker run --rm --runtime=nvidia --gpus all  -v ~/nltk_data:/home/gruen/nltk_data -v `pwd`:/data gruen /data/sentences.txt /data/gruen_score.csv
+
 ## Citation
 If you find this repo useful, please cite:
 ```bibtex
@@ -99,3 +109,4 @@ If you find this repo useful, please cite:
   year={2020}
 }
 ```
+
