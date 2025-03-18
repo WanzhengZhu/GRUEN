@@ -6,7 +6,7 @@ import csv
 
 
 def get_sentences(filename):
-    with open(filename, 'r') as f:
+    with open(filename, 'r', encoding='utf-8') as f:
         lines = f.readlines()
         return [l.replace('\n', '') for l in lines]
 
