@@ -285,9 +285,10 @@ def get_gruen(candidates):
     grammaticality_score = get_grammaticality_score(processed_candidates)
     redundancy_score = get_redundancy_score(processed_candidates)
     focus_score = get_focus_score(processed_candidates)
+    # We do not release the code for the coherence score calculation due to efficiency reasons. The GRUEN score are fairly reliable to use without adding the coherence score too.
+    # For those who are interested in the coherence calculation, please email zhuw0006@e.ntu.edu.sg for code.
     # coherence_score = get_coherence_score(processed_candidates)
-    # We do not release the code for the coherence score calculation for this version.
-    # We are working on a more efficient and reliable approach now and will release it later.
+    
     gruen_score = [
         min(1, max(0, sum(i)))
         for i in zip(grammaticality_score, redundancy_score, focus_score)
