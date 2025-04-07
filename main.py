@@ -12,7 +12,9 @@ from tqdm import tqdm
 from transformers import BertConfig, BertForSequenceClassification, BertTokenizer, BertForMaskedLM
 from transformers import glue_convert_examples_to_features, logging
 from transformers.data.processors.utils import InputExample
+import wmd
 from wmd import WMD
+
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 """ Processing """
@@ -245,12 +247,14 @@ def get_redundancy_score(all_summary):
 
 @Language.component("simhook")
 def SimilarityHook(doc):
-    return WMD.SpacySimilarityHook(doc)
+    doc.user_hooks['similarity'] = wmd.WMD.SpacySimilarityHook(doc).compute_similarity
+    return doc
 
 
 def get_focus_score(all_summary):
 
     def compute_sentence_similarity():
+
         nlp = spacy.load('en_core_web_md')
         nlp.add_pipe('simhook', last=True)
         all_score = []
@@ -260,6 +264,7 @@ def get_focus_score(all_summary):
                 continue
             score = []
             for j in range(1, len(all_summary[i])):
+                
                 doc1 = nlp(all_summary[i][j - 1])
                 doc2 = nlp(all_summary[i][j])
                 try:
